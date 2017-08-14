@@ -1,0 +1,10 @@
+name: UHC-Core
+main: center.hardcore.uhccore
+author: [Garispl]
+version: 1.0-SNAPSHOT
+commands:
+  createkit:
+  deletekit:
+  kdr:
+  kit:
+  spawn:
