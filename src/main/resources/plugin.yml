@@ -1,6 +1,6 @@
 name: UHC-Core
 main: center.hardcore.uhccore
-author: [Garispl]
+author: [Garispl, _Wout]
 version: 1.0-SNAPSHOT
 commands:
   createkit:

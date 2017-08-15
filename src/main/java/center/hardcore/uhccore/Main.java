@@ -1,5 +1,7 @@
 package center.hardcore.uhccore;
 
+import center.hardcore.uhccore.command.*;
+import center.hardcore.uhccore.command.completors.KitCommandCompletor;
 import center.hardcore.uhccore.dto.Kit;
 import center.hardcore.uhccore.goose.GooseHandler;
 import center.hardcore.uhccore.handler.CombatLogHandler;
@@ -37,6 +39,13 @@ public class Main extends JavaPlugin
         getKitHandler().loadKits();
 
         spawnLocation = new Location(Bukkit.getWorld("world"), 0, 70, 0);
+
+        getCommand("kit").setExecutor(new KitCommand());
+        getCommand("kit").setTabCompleter(new KitCommandCompletor());
+        getCommand("createkit").setExecutor(new CreateKitCommand());
+        getCommand("deletekit").setExecutor(new DeleteKitCommand());
+        getCommand("spawn").setExecutor(new SpawnCommand());
+        getCommand("kdr").setExecutor(new KDRCommand());
     }
 
     @Override

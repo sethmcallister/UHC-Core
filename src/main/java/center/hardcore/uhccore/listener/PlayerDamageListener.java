@@ -6,6 +6,7 @@ import center.hardcore.uhccore.timer.Timer;
 import center.hardcore.uhccore.timer.TimerType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
@@ -13,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 public class PlayerDamageListener implements Listener
 {
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerDamage(EntityDamageByEntityEvent event)
     {
         if(event.isCancelled())
