@@ -39,7 +39,7 @@ public class Main extends JavaPlugin
     {
         getKitHandler().loadKits();
 
-        spawnLocation = new Location(Bukkit.getWorld("world"), 0, 70, 0);
+        this.spawnLocation = new Location(Bukkit.getWorld("world"), 0, 70, 0);
 
         getCommand("kit").setExecutor(new KitCommand());
         getCommand("kit").setTabCompleter(new KitCommandCompletor());
@@ -47,7 +47,6 @@ public class Main extends JavaPlugin
         getCommand("deletekit").setExecutor(new DeleteKitCommand());
         getCommand("spawn").setExecutor(new SpawnCommand());
         getCommand("kdr").setExecutor(new KDRCommand());
-
 
         getServer().getPluginManager().registerEvents(new PlayerDamageListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerDeathListener(), this);
