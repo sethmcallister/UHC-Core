@@ -7,6 +7,7 @@ import center.hardcore.uhccore.goose.GooseHandler;
 import center.hardcore.uhccore.handler.CombatLogHandler;
 import center.hardcore.uhccore.handler.KitHandler;
 import center.hardcore.uhccore.handler.ServerHandler;
+import center.hardcore.uhccore.listener.*;
 import center.hardcore.uhccore.timer.TimerHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -46,6 +47,14 @@ public class Main extends JavaPlugin
         getCommand("deletekit").setExecutor(new DeleteKitCommand());
         getCommand("spawn").setExecutor(new SpawnCommand());
         getCommand("kdr").setExecutor(new KDRCommand());
+
+
+        getServer().getPluginManager().registerEvents(new PlayerDamageListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerDeathListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerInteractListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerQuitListener(), this);
+        getServer().getPluginManager().registerEvents(new PotionSplashListener(), this);
     }
 
     @Override

@@ -14,7 +14,7 @@ public class PotionSplashListener implements Listener
 {
     private final List<PotionEffectType> blockPotionEffects;
 
-    private PotionSplashListener()
+    public PotionSplashListener()
     {
         this.blockPotionEffects = new ArrayList<>();
     }
