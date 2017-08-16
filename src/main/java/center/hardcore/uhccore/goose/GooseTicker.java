@@ -1,5 +1,6 @@
 package center.hardcore.uhccore.goose;
 
+import be.woutdev.economy.api.EconomyAPI;
 import center.hardcore.uhccore.Main;
 import center.hardcore.uhccore.timer.Timer;
 import com.skygrind.api.API;
@@ -78,8 +79,9 @@ public class GooseTicker extends BukkitRunnable
             User user = API.getUserManager().findByUniqueId(player.getUniqueId());
             Profile profile = user.getProfile("factions");
             scoreboard.add(translateString("&7&m---------"), translateString("&7&m---------"));
-            scoreboard.add(translateString("&c&lKills&7: "), translateString("&f" + profile.getDouble("kills").intValue()));
-            scoreboard.add(translateString("&c&lDeaths&7: "), translateString("&f" + profile.getDouble("deaths").intValue()));
+            scoreboard.add(translateString("&c&lMoney&7: "), EconomyAPI.getAPI().format(EconomyAPI.getAPI().getBalance(player)));
+            scoreboard.add(translateString("&c&lKills&7: "), String.valueOf(profile.getDouble("kills").intValue()));
+            scoreboard.add(translateString("&c&lDeaths&7: "), String.valueOf(profile.getDouble("deaths").intValue()));
             if(profile.getDouble("killstreak") != null && profile.getDouble("killstreak") > 0D)
                 scoreboard.add(translateString("&c&lKill Streak"), translateString("&7: &f") + profile.getDouble("killstreak").intValue());
 

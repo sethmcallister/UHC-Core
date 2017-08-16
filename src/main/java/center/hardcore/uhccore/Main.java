@@ -4,6 +4,7 @@ import center.hardcore.uhccore.command.*;
 import center.hardcore.uhccore.command.completors.KitCommandCompletor;
 import center.hardcore.uhccore.dto.Kit;
 import center.hardcore.uhccore.goose.GooseHandler;
+import center.hardcore.uhccore.goose.GooseTicker;
 import center.hardcore.uhccore.handler.CombatLogHandler;
 import center.hardcore.uhccore.handler.KitHandler;
 import center.hardcore.uhccore.handler.ServerHandler;
@@ -12,6 +13,8 @@ import center.hardcore.uhccore.timer.TimerHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
+import xyz.sethy.event.EventAPI;
+import xyz.sethy.event.impl.EventFramework;
 
 public class Main extends JavaPlugin
 {
@@ -29,17 +32,18 @@ public class Main extends JavaPlugin
         setInstance(this);
         this.timerHandler = new TimerHandler();
         this.serverHandler = new ServerHandler();
-        this.combatLogHandler = new CombatLogHandler();
-        this.kitHandler = new KitHandler();
         this.gooseHandler = new GooseHandler();
+        EventFramework eventFramework = new EventFramework();
+        EventAPI.setFramework(eventFramework);
     }
 
     @Override
     public void onEnable()
     {
+        this.kitHandler = new KitHandler();
         getKitHandler().loadKits();
-
-        this.spawnLocation = new Location(Bukkit.getWorld("world"), 0, 70, 0);
+        this.combatLogHandler = new CombatLogHandler();
+        this.spawnLocation = new Location(Bukkit.getWorld("world"), 0.5, 77, 0.5);
 
         getCommand("kit").setExecutor(new KitCommand());
         getCommand("kit").setTabCompleter(new KitCommandCompletor());
@@ -53,7 +57,11 @@ public class Main extends JavaPlugin
         getServer().getPluginManager().registerEvents(new PlayerInteractListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerQuitListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerRespawnListener(), this);
         getServer().getPluginManager().registerEvents(new PotionSplashListener(), this);
+        getServer().getPluginManager().registerEvents(this.gooseHandler, this);
+
+        new GooseTicker().runTaskTimerAsynchronously(this, 1L, 1L);
     }
 
     @Override

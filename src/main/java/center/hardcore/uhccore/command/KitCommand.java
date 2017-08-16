@@ -2,6 +2,7 @@ package center.hardcore.uhccore.command;
 
 import center.hardcore.uhccore.Main;
 import center.hardcore.uhccore.dto.Kit;
+import center.hardcore.uhccore.timer.DefaultTimer;
 import center.hardcore.uhccore.timer.Timer;
 import center.hardcore.uhccore.timer.TimerType;
 import org.bukkit.ChatColor;
@@ -10,8 +11,20 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.time.temporal.ValueRange;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 public class KitCommand implements CommandExecutor
 {
+    private final Map<UUID, Map<String, Long>> cooldowns;
+
+    public KitCommand()
+    {
+        this.cooldowns = new HashMap<>();
+    }
+
     @Override
     public boolean onCommand(final CommandSender sender, final Command command, final String s, final String[] args)
     {
@@ -47,6 +60,20 @@ public class KitCommand implements CommandExecutor
             return true;
         }
 
+        Map<String, Long> cooldownMap = this.cooldowns.computeIfAbsent(player.getUniqueId(), k -> new HashMap<>());
+
+        Long cooldown = cooldownMap.computeIfAbsent(kit.getName(), k -> 0L);
+
+        if((cooldown - System.currentTimeMillis()) > 0)
+        {
+            long millisLeft = cooldown - System.currentTimeMillis();
+            double value = millisLeft / 1000.0D;
+            double sec = Math.round(10.0D * value) / 10.0D;
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou cannot use this kit for another &c&l" + sec + "&c seconds."));
+            return true;
+        }
+        cooldownMap.put(kit.getName(), kit.getCooldown() + System.currentTimeMillis());
+        this.cooldowns.put(player.getUniqueId(), cooldownMap);
         Main.getInstance().getKitHandler().addPlayerToQueue(player.getUniqueId(), kit);
         return true;
     }

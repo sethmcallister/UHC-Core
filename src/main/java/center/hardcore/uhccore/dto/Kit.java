@@ -21,14 +21,14 @@ import java.util.stream.Collectors;
 public class Kit
 {
     private final String name;
-    private final int coins;
+    private final long coins;
     private final List<ItemStack> armor;
     private final List<ItemStack> items;
     private final ItemStack icon;
     private final YamlConfiguration configuration;
     private boolean deleted;
 
-    public Kit(final String name, final int coins, final List<ItemStack> armor, final List<ItemStack> items, final ItemStack icon)
+    public Kit(final String name, final long coins, final List<ItemStack> armor, final List<ItemStack> items, final ItemStack icon)
     {
         this.name = name;
         this.coins = coins;
@@ -47,7 +47,7 @@ public class Kit
         return name;
     }
 
-    public int getCoins() {
+    public long getCooldown() {
         return coins;
     }
 

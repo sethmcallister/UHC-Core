@@ -1,7 +1,5 @@
 package center.hardcore.uhccore.handler;
 
-import org.bukkit.Location;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;

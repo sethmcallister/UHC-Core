@@ -11,7 +11,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.scheduler.BukkitRunnable;
+import xyz.sethy.event.Event;
+import xyz.sethy.event.EventAPI;
 
 public class PlayerJoinListener implements Listener
 {
@@ -22,17 +23,19 @@ public class PlayerJoinListener implements Listener
         Player player = event.getPlayer();
         User user = API.getUserManager().findByUniqueId(player.getUniqueId());
 
-        new BukkitRunnable()
+        EventAPI.callEvent(new Event()
         {
             @Override
-            public void run()
+            public void onExecution()
             {
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m-----------------------------------------------------"));
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', " &eWelcome to &fFactions&e."));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&m-----------------------------------------------------"));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', " &eWelcome, &f" + player.getName() + "&e to &fFactions&e."));
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', " &eStore:&f https://kitpvp.rip/store"));
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', " &eWebsite:&f https://kitpvp.rip"));
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', " &eSupport:&f ts.kitpvp.rip"));
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m-----------------------------------------------------"));
+                player.sendMessage(" ");
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eTo create a faction, type&f /f create <Name>"));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&m-----------------------------------------------------"));
 
                 Profile profile = user.getProfile("factions");
                 if(profile == null)
@@ -42,18 +45,11 @@ public class PlayerJoinListener implements Listener
                     profile.set("deaths", 0D);
                     profile.set("killstreak", 0D);
                     user.getAllProfiles().add(profile);
+                    user.update();
+                    player.teleport(Main.getInstance().getSpawnLocation());
                     Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',  "&eWelcome &f" + player.getName() + "&e to &fFactions&e."));
                 }
             }
-        }.runTaskAsynchronously(Main.getInstance());
-
-        new BukkitRunnable()
-        {
-            @Override
-            public void run()
-            {
-                user.update();
-            }
-        }.runTaskLaterAsynchronously(Main.getInstance(), 20L);
+        });
     }
 }

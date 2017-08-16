@@ -1,5 +1,5 @@
 name: UHC-Core
-main: center.hardcore.uhccore
+main: center.hardcore.uhccore.Main
 author: [Garispl, _Wout]
 version: 1.0-SNAPSHOT
 commands:

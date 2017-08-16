@@ -17,6 +17,7 @@ public class PotionSplashListener implements Listener
     public PotionSplashListener()
     {
         this.blockPotionEffects = new ArrayList<>();
+        this.blockPotionEffects.add(PotionEffectType.HEAL);
     }
 
     @EventHandler

@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 public class PlayerDamageListener implements Listener
 {
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler
     public void onPlayerDamage(EntityDamageByEntityEvent event)
     {
         if(event.isCancelled())
@@ -24,12 +24,6 @@ public class PlayerDamageListener implements Listener
             return;
 
         Player damaged = (Player) event.getEntity();
-
-        if (Main.getInstance().getServerHandler().getPvpProtected().contains(damaged.getUniqueId()))
-        {
-            event.setCancelled(true);
-            return;
-        }
 
         Timer timer = Main.getInstance().getTimerHandler().getTimer(damaged, TimerType.COMBAT_TAG);
         if(timer != null && timer.getTime() > 0)

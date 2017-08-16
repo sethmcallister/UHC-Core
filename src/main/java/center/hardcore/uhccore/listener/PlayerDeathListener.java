@@ -59,7 +59,6 @@ public class PlayerDeathListener implements Listener
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&c" + killed.getName() + "&4[" + killedProfile.getDouble("kills").intValue() + "]&e has died."));
             return;
         }
-        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&c" + killed.getName() + "&4[" + killedProfile.getDouble("kills").intValue() + "]&e was killed by &c" + killer.getName() + "&4[" + killedProfile.getDouble("kills").intValue() + "]"));
 
         User killerUser = API.getUserManager().findByUniqueId(killer.getUniqueId());
         Profile killerProfile = killerUser.getProfile("factions");
@@ -87,5 +86,6 @@ public class PlayerDeathListener implements Listener
         Double kills = killerProfile.getDouble("kills");
         kills++;
         killerProfile.set("kills", kills);
+        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&c" + killed.getName() + "&4[" + killedProfile.getDouble("kills").intValue() + "]&e was killed by &c" + killer.getName() + "&4[" + killedProfile.getDouble("kills").intValue() + "]"));
     }
 }
