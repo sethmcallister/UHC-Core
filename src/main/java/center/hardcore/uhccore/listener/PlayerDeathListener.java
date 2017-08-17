@@ -61,7 +61,7 @@ public class PlayerDeathListener implements Listener
 
         if (killer.hasPermission("factions.death.head"))
         {
-            ItemStack stack = new ItemStack(Material.SKULL_ITEM, 1);
+            ItemStack stack = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
             SkullMeta meta = (SkullMeta) stack.getItemMeta();
             meta.setOwner(killed.getName());
             meta.setDisplayName(ChatColor.YELLOW + killed.getName() + "'s head");
