@@ -70,13 +70,7 @@ public class Kit
     {
         if (!player.hasPermission("kit.use." + name.toLowerCase()) && !player.hasPermission("kit.use.*"))
         {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou do not have access to this kit!"));
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou can purchase this at our store&f https://kitpvp.rip/store"));
-            player.spigot().sendMessage(new ComponentBuilder("")
-                    .append("Or buy this kit with ").color(ChatColor.GOLD).append(coins + " coins")
-                    .color(ChatColor.WHITE).append(" by clicking ").color(ChatColor.GOLD).append("here").color(
-                    ChatColor.GREEN).bold(true).event(new ClickEvent(
-                    Action.RUN_COMMAND, "/buykit " + name.toLowerCase())).create());
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou do not have permission to use this kit."));
             return;
         }
 
