@@ -52,6 +52,7 @@ public class Main extends JavaPlugin
         getCommand("spawn").setExecutor(new SpawnCommand());
         getCommand("kdr").setExecutor(new KDRCommand());
 
+        getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerDamageListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerDeathListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerInteractListener(), this);
