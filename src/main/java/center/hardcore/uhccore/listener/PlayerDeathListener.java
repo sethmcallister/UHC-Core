@@ -15,6 +15,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import java.util.HashMap;
@@ -58,6 +59,17 @@ public class PlayerDeathListener implements Listener
         {
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&c" + killed.getName() + "&4[" + killedProfile.getDouble("kills").intValue() + "]&e has died."));
             return;
+        }
+
+        if (killer.hasPermission("factions.death.head"))
+        {
+            ItemStack stack = new ItemStack(Material.SKULL_ITEM, 1);
+            SkullMeta meta = (SkullMeta) stack.getItemMeta();
+            meta.setOwner(killed.getName());
+            meta.setDisplayName(ChatColor.YELLOW + killed.getName() + "'s head");
+            stack.setItemMeta(meta);
+
+            event.getDrops().add(stack);
         }
 
         User killerUser = API.getUserManager().findByUniqueId(killer.getUniqueId());
