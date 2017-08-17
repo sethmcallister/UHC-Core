@@ -80,13 +80,6 @@ public class Kit
             return;
         }
 
-        player.getInventory().clear();
-
-        player.getInventory().setHelmet(null);
-        player.getInventory().setChestplate(null);
-        player.getInventory().setLeggings(null);
-        player.getInventory().setBoots(null);
-
         this.items.stream().filter(Objects::nonNull).forEachOrdered(itemStack -> player.getInventory().addItem(itemStack));
 
         this.armor.forEach(itemStack -> {
