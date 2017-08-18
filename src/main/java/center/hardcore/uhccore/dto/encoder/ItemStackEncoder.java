@@ -12,6 +12,11 @@ import java.io.IOException;
 
 public class ItemStackEncoder
 {
+    private ItemStackEncoder() throws IllegalAccessException
+    {
+        throw new IllegalAccessException("Utility class");
+    }
+
     public static ItemStack decode(String encoded)
     {
         try (ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(encoded)); BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream))
