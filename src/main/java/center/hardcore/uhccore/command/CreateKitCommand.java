@@ -2,6 +2,7 @@ package center.hardcore.uhccore.command;
 
 import center.hardcore.uhccore.Main;
 import center.hardcore.uhccore.dto.Kit;
+import io.netty.util.internal.shaded.org.jctools.queues.MessagePassingQueue;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -69,7 +70,7 @@ public class CreateKitCommand implements CommandExecutor
         Kit kit = new Kit(kitName, coins, armor, items, icon);
         Main.getInstance().getKitHandler().getKits().add(kit);
         sender.sendMessage(ChatColor.YELLOW + "You have successfully created the kit " + ChatColor.GREEN + kitName + ChatColor.YELLOW + ".");
-        Bukkit.getLogger().info(sender.getName() + " has created a kit called " + kitName + ": " + Arrays.toString(armor.toArray()) + ", " + Arrays.toString(items.toArray()));
+        Bukkit.getLogger().info(String.format("%s has created a kit called %s: %s, %s", sender.getName(), kitName, Arrays.toString(armor.toArray()), Arrays.toString(items.toArray())));
         return true;
     }
 }
