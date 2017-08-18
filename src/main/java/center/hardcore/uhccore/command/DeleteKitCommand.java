@@ -32,7 +32,7 @@ public class DeleteKitCommand implements CommandExecutor
         }
         Main.getInstance().getKitHandler().getKits().remove(kit);
         sender.sendMessage(ChatColor.YELLOW + "You have successfully deleted the kit " + ChatColor.GREEN + kitName + ChatColor.YELLOW + ".");
-        Bukkit.getLogger().info(sender.getName() + " has deleted the kit " + kitName + ".");
+        Bukkit.getLogger().info(String.format("%s has deleted the kit %s.", sender.getName(), kitName));
         return true;
     }
 }
