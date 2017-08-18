@@ -22,7 +22,8 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.util.*;
+import java.util.Objects;
+import java.util.UUID;
 
 public class CombatEntry extends BukkitRunnable implements Listener
 {
@@ -82,6 +83,7 @@ public class CombatEntry extends BukkitRunnable implements Listener
         this.i = 30;
     }
 
+    @Override
     public void run()
     {
         if (this.i > 0)
@@ -90,6 +92,7 @@ public class CombatEntry extends BukkitRunnable implements Listener
             cancel();
     }
 
+    @Override
     public void cancel()
     {
         removeNPC();
@@ -104,7 +107,7 @@ public class CombatEntry extends BukkitRunnable implements Listener
 
         NPC npc = Main.getInstance().getCombatLogHandler().getNpcRegistry().getAsNPC(event.getEntity());
 
-        if(!Objects.equals(npc, getNpc()))
+        if (!Objects.equals(npc, getNpc()))
             return;
 
         Player killed = event.getEntity();
@@ -119,7 +122,7 @@ public class CombatEntry extends BukkitRunnable implements Listener
         killedProfile.set("deaths", deaths);
 
         Timer timer = Main.getInstance().getTimerHandler().getTimer(killed, TimerType.COMBAT_TAG);
-        if(timer != null && timer.getTime() > 0)
+        if (timer != null && timer.getTime() > 0)
         {
             timer.setTime(0L);
             Main.getInstance().getTimerHandler().getPlayerTimers(killed).remove(timer);
@@ -143,18 +146,18 @@ public class CombatEntry extends BukkitRunnable implements Listener
         killerProfile.set("kills", kills);
 
         Double killstreak = killerProfile.getDouble("killstreak");
-        if(killstreak == null)
+        if (killstreak == null)
             killstreak = 0D;
         killstreak++;
         killerProfile.set("killstreak", killstreak);
 
-        if(killstreak == 3)
+        if (killstreak == 3)
         {
             killer.getInventory().addItem(new ItemStack(Material.GOLDEN_APPLE, 3));
             killer.sendMessage(ChatColor.YELLOW + "You have been given " + ChatColor.GREEN + "3x Golden Apple" + ChatColor.YELLOW + " for your killstreak.");
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&a" + killer.getName() + "&e has been given &a3x Golden Apples&e for their&a 3 killstreak&e."));
         }
-        else if(killstreak == 5)
+        else if (killstreak == 5)
         {
             PotionEffect effect = new PotionEffect(PotionEffectType.REGENERATION, 5 * 20, 2);
             killer.addPotionEffect(effect);

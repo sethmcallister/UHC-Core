@@ -37,8 +37,7 @@ public class ItemStackEncoder
             boos.writeObject(stack);
 
             return Base64Coder.encodeLines(baos.toByteArray());
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             Bukkit.getLogger().severe(e.getMessage());
         }

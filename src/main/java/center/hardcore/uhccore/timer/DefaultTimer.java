@@ -21,7 +21,7 @@ public class DefaultTimer implements Timer
     @Override
     public Long getTime()
     {
-        if(frozen)
+        if (frozen)
             return time - frozenAt;
 
         return time - System.currentTimeMillis();
@@ -77,6 +77,6 @@ public class DefaultTimer implements Timer
     public String toString()
     {
         return this.time.toString() + ":" + this.player.getUniqueId().toString() + ":" + this.frozen + ":" +
-               this.timerType.toString();
+                this.timerType.toString();
     }
 }

@@ -11,7 +11,7 @@ public class BlockBreakListener implements Listener
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event)
     {
-        if(event.isCancelled())
+        if (event.isCancelled())
             return;
 
         switch (event.getBlock().getType())

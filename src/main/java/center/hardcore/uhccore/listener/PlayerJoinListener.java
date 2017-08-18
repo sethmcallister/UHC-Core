@@ -38,7 +38,7 @@ public class PlayerJoinListener implements Listener
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&m-----------------------------------------------------"));
 
                 Profile profile = user.getProfile("factions");
-                if(profile == null)
+                if (profile == null)
                 {
                     profile = new Profile("factions");
                     profile.set("kills", 0D);
@@ -47,7 +47,7 @@ public class PlayerJoinListener implements Listener
                     user.getAllProfiles().add(profile);
                     user.update();
                     player.teleport(Main.getInstance().getSpawnLocation());
-                    Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',  "&eWelcome &f" + player.getName() + "&e to &fFactions&e."));
+                    Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&eWelcome &f" + player.getName() + "&e to &fFactions&e."));
                 }
             }
         });

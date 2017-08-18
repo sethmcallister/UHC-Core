@@ -18,10 +18,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Random;
 
 public class PlayerDeathListener implements Listener
 {
@@ -44,7 +40,7 @@ public class PlayerDeathListener implements Listener
         killedProfile.set("deaths", deaths);
 
         Timer timer = Main.getInstance().getTimerHandler().getTimer(killed, TimerType.COMBAT_TAG);
-        if(timer != null && timer.getTime() > 0)
+        if (timer != null && timer.getTime() > 0)
         {
             timer.setTime(0L);
             Main.getInstance().getTimerHandler().getPlayerTimers(killed).remove(timer);
@@ -74,18 +70,18 @@ public class PlayerDeathListener implements Listener
         Profile killerProfile = killerUser.getProfile("factions");
 
         Double killstreak = killerProfile.getDouble("killstreak");
-        if(killstreak == null)
+        if (killstreak == null)
             killstreak = 0D;
         killstreak++;
         killerProfile.set("killstreak", killstreak);
 
-        if(killstreak == 3)
+        if (killstreak == 3)
         {
             killer.getInventory().addItem(new ItemStack(Material.GOLDEN_APPLE, 3));
             killer.sendMessage(ChatColor.YELLOW + "You have been given " + ChatColor.GREEN + "3x Golden Apple" + ChatColor.YELLOW + " for your killstreak.");
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&a" + killer.getName() + "&e has been given &a3x Golden Apples&e for their&a 3 killstreak&e."));
         }
-        else if(killstreak == 5)
+        else if (killstreak == 5)
         {
             PotionEffect effect = new PotionEffect(PotionEffectType.REGENERATION, 5 * 20, 2);
             killer.addPotionEffect(effect);

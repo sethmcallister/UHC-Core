@@ -4,9 +4,6 @@ import center.hardcore.uhccore.Main;
 import center.hardcore.uhccore.dto.encoder.ItemStackEncoder;
 import center.hardcore.uhccore.util.ItemStackUtils;
 import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ClickEvent.Action;
-import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -48,7 +45,8 @@ public class Kit
         return name;
     }
 
-    public long getCooldown() {
+    public long getCooldown()
+    {
         return coins;
     }
 
@@ -106,8 +104,7 @@ public class Kit
         try
         {
             this.configuration.save(getSaveFile());
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             Bukkit.getLogger().severe(e.getMessage());
         }
@@ -121,8 +118,7 @@ public class Kit
             try
             {
                 file.createNewFile();
-            }
-            catch (IOException e)
+            } catch (IOException e)
             {
                 Bukkit.getLogger().severe(e.getMessage());
             }

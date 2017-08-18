@@ -95,7 +95,7 @@ public class CombatLogHandler implements Listener
         {
             Main.getInstance().getServerHandler().getPvpProtected().remove(player.getUniqueId());
             Player npc = (Player) npcWrapper.getNpc().getEntity();
-            if(npc == null)
+            if (npc == null)
             {
                 player.teleport(Main.getInstance().getSpawnLocation());
                 return;
@@ -113,7 +113,7 @@ public class CombatLogHandler implements Listener
     public void onQuit(PlayerQuitEvent event)
     {
         Timer timer = Main.getInstance().getTimerHandler().getTimer(event.getPlayer(), TimerType.COMBAT_TAG);
-        if(timer != null && timer.getTime() > 0)
+        if (timer != null && timer.getTime() > 0)
             createNPC(event.getPlayer());
     }
 

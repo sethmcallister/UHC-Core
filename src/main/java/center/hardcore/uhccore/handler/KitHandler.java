@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+
 import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -31,7 +32,7 @@ public class KitHandler
                 for (final UUID uuid : kitApplicationQueue)
                 {
                     Kit kit = kitApplication.get(uuid);
-                    if(kit == null)
+                    if (kit == null)
                     {
                         kitApplicationQueue.remove(uuid);
                         kitApplication.remove(uuid);

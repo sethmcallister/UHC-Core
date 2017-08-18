@@ -2,7 +2,6 @@ package center.hardcore.uhccore.command;
 
 import center.hardcore.uhccore.Main;
 import center.hardcore.uhccore.dto.Kit;
-import center.hardcore.uhccore.timer.DefaultTimer;
 import center.hardcore.uhccore.timer.Timer;
 import center.hardcore.uhccore.timer.TimerType;
 import org.bukkit.ChatColor;
@@ -11,7 +10,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.time.temporal.ValueRange;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -54,7 +52,7 @@ public class KitCommand implements CommandExecutor
         }
 
         Timer timer = Main.getInstance().getTimerHandler().getTimer(player, TimerType.COMBAT_TAG);
-        if(timer != null && timer.getTime() > 0)
+        if (timer != null && timer.getTime() > 0)
         {
             sender.sendMessage(ChatColor.RED + "You cannot do this command while in combat tag.");
             return true;
@@ -64,7 +62,7 @@ public class KitCommand implements CommandExecutor
 
         Long cooldown = cooldownMap.computeIfAbsent(kit.getName(), k -> 0L);
 
-        if((cooldown - System.currentTimeMillis()) > 0)
+        if ((cooldown - System.currentTimeMillis()) > 0)
         {
             long millisLeft = cooldown - System.currentTimeMillis();
             double value = millisLeft / 1000.0D;

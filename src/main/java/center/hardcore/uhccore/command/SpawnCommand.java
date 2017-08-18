@@ -16,12 +16,14 @@ import java.util.UUID;
 /**
  * Created by Wout on 10/08/2017.
  */
-public class SpawnCommand implements CommandExecutor {
+public class SpawnCommand implements CommandExecutor
+{
 
     public static final List<UUID> TELEPORTING = new ArrayList<>();
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
+    {
         if (!(sender instanceof Player))
         {
             sender.sendMessage(ChatColor.RED + "Only players are allowed to execute this command!");

@@ -11,10 +11,10 @@ public class PlayerMoveListener implements Listener
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event)
     {
-        if(event.getFrom().getX() == event.getTo().getX() || event.getFrom().getZ() == event.getTo().getZ())
+        if (event.getFrom().getX() == event.getTo().getX() || event.getFrom().getZ() == event.getTo().getZ())
             return;
 
-        if(SpawnCommand.TELEPORTING.contains(event.getPlayer().getUniqueId()))
+        if (SpawnCommand.TELEPORTING.contains(event.getPlayer().getUniqueId()))
         {
             SpawnCommand.TELEPORTING.remove(event.getPlayer().getUniqueId());
             event.getPlayer().sendMessage(ChatColor.YELLOW + "You have moved, and cancelled your current teleportation.");

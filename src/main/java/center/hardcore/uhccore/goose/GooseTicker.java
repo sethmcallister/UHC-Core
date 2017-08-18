@@ -22,15 +22,6 @@ public class GooseTicker extends BukkitRunnable
 {
     private static final DecimalFormat FORMAT = new DecimalFormat("0.0");
 
-    private ConcurrentSkipListSet<String> splitEqually(final String text, final int size)
-    {
-        ConcurrentSkipListSet<String> ret = new ConcurrentSkipListSet<>();
-
-        for (int start = 0; start < text.length(); start += size)
-            ret.add(text.substring(start, Math.min(text.length(), start + size)));
-        return ret;
-    }
-
     public static String formatTime(long time)
     {
         if (time > 60000L)
@@ -49,8 +40,17 @@ public class GooseTicker extends BukkitRunnable
         if (paramMilliseconds < TimeUnit.MINUTES.toMillis(1L))
             return FORMAT.format(paramMilliseconds);
         return DurationFormatUtils.formatDuration(paramMilliseconds,
-                                                  (paramMilliseconds >= TimeUnit.HOURS.toMillis(1L) ? "HH:" : "") +
-                                                  "mm:ss");
+                (paramMilliseconds >= TimeUnit.HOURS.toMillis(1L) ? "HH:" : "") +
+                        "mm:ss");
+    }
+
+    private ConcurrentSkipListSet<String> splitEqually(final String text, final int size)
+    {
+        ConcurrentSkipListSet<String> ret = new ConcurrentSkipListSet<>();
+
+        for (int start = 0; start < text.length(); start += size)
+            ret.add(text.substring(start, Math.min(text.length(), start + size)));
+        return ret;
     }
 
     private String translateString(String string)
@@ -82,7 +82,7 @@ public class GooseTicker extends BukkitRunnable
             scoreboard.add(translateString("&c&lMoney&7: "), EconomyAPI.getAPI().format(EconomyAPI.getAPI().getBalance(player)));
             scoreboard.add(translateString("&c&lKills&7: "), String.valueOf(profile.getDouble("kills").intValue()));
             scoreboard.add(translateString("&c&lDeaths&7: "), String.valueOf(profile.getDouble("deaths").intValue()));
-            if(profile.getDouble("killstreak") != null && profile.getDouble("killstreak") > 0D)
+            if (profile.getDouble("killstreak") != null && profile.getDouble("killstreak") > 0D)
                 scoreboard.add(translateString("&c&lKill Streak"), translateString("&7: &f") + profile.getDouble("killstreak").intValue());
 
             if (hasAnyTimers(player))

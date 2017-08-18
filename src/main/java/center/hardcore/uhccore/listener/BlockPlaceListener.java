@@ -10,7 +10,7 @@ public class BlockPlaceListener implements Listener
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event)
     {
-        if(event.getBlock().getLocation().getX() > 2970 && event.getBlock().getLocation().getZ() > 2970)
+        if (event.getBlock().getLocation().getX() > 2970 && event.getBlock().getLocation().getZ() > 2970)
         {
             event.setBuild(false);
             event.getPlayer().sendMessage(ChatColor.RED + "You cannot build here.");

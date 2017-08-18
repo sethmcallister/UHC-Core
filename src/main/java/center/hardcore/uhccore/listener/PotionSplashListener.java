@@ -23,7 +23,7 @@ public class PotionSplashListener implements Listener
     @EventHandler
     public void onPotionSplash(PotionSplashEvent event)
     {
-        if(this.containsBlockPotionEffect(event.getPotion().getEffects()))
+        if (this.containsBlockPotionEffect(event.getPotion().getEffects()))
             event.setCancelled(true);
     }
 

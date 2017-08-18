@@ -16,6 +16,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import xyz.sethy.event.EventAPI;
 import xyz.sethy.event.impl.EventFramework;
 
+import java.util.logging.Logger;
+
 public class Main extends JavaPlugin
 {
     private static Main instance;
@@ -25,6 +27,16 @@ public class Main extends JavaPlugin
     private KitHandler kitHandler;
     private Location spawnLocation;
     private GooseHandler gooseHandler;
+
+    public static synchronized Main getInstance()
+    {
+        return instance;
+    }
+
+    private static synchronized void setInstance(Main newInstance)
+    {
+        instance = newInstance;
+    }
 
     @Override
     public void onLoad()
@@ -70,16 +82,6 @@ public class Main extends JavaPlugin
     public void onDisable()
     {
         getKitHandler().getKits().forEach(Kit::save);
-    }
-
-    public static synchronized Main getInstance()
-    {
-        return instance;
-    }
-
-    private static synchronized void setInstance(Main newInstance)
-    {
-        instance = newInstance;
     }
 
     public synchronized TimerHandler getTimerHandler()

@@ -15,9 +15,11 @@ import java.math.RoundingMode;
 /**
  * Created by Wout on 10/08/2017.
  */
-public class KDRCommand implements CommandExecutor {
+public class KDRCommand implements CommandExecutor
+{
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
+    {
         if (!(sender instanceof Player))
         {
             return false;
@@ -43,7 +45,8 @@ public class KDRCommand implements CommandExecutor {
         return true;
     }
 
-    private double round(double value) {
+    private double round(double value)
+    {
         BigDecimal bd = BigDecimal.valueOf(value);
         bd = bd.setScale(2, RoundingMode.HALF_UP);
         return bd.doubleValue();

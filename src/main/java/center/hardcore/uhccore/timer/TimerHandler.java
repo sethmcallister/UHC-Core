@@ -52,11 +52,11 @@ public class TimerHandler
         if (timers.get(player.getUniqueId()) == null)
             return null;
 
-        for(Timer timer : this.timers.get(player.getUniqueId()))
+        for (Timer timer : this.timers.get(player.getUniqueId()))
         {
-            if(timer.getTimerType() == timerType)
+            if (timer.getTimerType() == timerType)
             {
-                if(timer.getTime() > 0L)
+                if (timer.getTime() > 0L)
                     return timer;
             }
         }
