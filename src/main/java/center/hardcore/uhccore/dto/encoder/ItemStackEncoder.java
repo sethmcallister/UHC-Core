@@ -1,5 +1,6 @@
 package center.hardcore.uhccore.dto.encoder;
 
+import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
@@ -18,7 +19,7 @@ public class ItemStackEncoder
             return (ItemStack) dataInput.readObject();
         } catch (ClassNotFoundException | IOException e)
         {
-            e.printStackTrace();
+            Bukkit.getLogger().severe(e.getMessage());
         }
 
         return null;
@@ -31,9 +32,10 @@ public class ItemStackEncoder
             boos.writeObject(stack);
 
             return Base64Coder.encodeLines(baos.toByteArray());
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
-            e.printStackTrace();
+            Bukkit.getLogger().severe(e.getMessage());
         }
 
         return null;

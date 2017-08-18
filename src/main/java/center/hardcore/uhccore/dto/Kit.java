@@ -7,6 +7,7 @@ import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ClickEvent.Action;
 import net.md_5.bungee.api.chat.ComponentBuilder;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -108,7 +109,7 @@ public class Kit
         }
         catch (IOException e)
         {
-            e.printStackTrace();
+            Bukkit.getLogger().severe(e.getMessage());
         }
     }
 
@@ -120,9 +121,10 @@ public class Kit
             try
             {
                 file.createNewFile();
-            } catch (IOException e)
+            }
+            catch (IOException e)
             {
-                e.printStackTrace();
+                Bukkit.getLogger().severe(e.getMessage());
             }
         }
         return file;
