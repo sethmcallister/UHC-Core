@@ -3,7 +3,8 @@ package center.hardcore.uhccore.timer;
 public enum TimerType
 {
     COMBAT_TAG("&c&lSpawn Tag"),
-    ENDERPEARL("&e&lEnderpearl");
+    ENDERPEARL("&e&lEnderpearl"),
+    PROTECTION("&a&lProtection");
 
     private String score;
 

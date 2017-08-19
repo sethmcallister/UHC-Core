@@ -88,15 +88,26 @@ public class GooseTicker extends BukkitRunnable
             if (hasAnyTimers(player))
             {
                 scoreboard.add("", "");
+                List<Timer> globalTimers = Main.getInstance().getServerHandler().getGlobalTimers();
+                for(Timer timer : globalTimers)
+                {
+                    if(timer.getTime() < 0)
+                        continue;
+
+                    String left = translateString(timer.getTimerType().getScore());
+                    String right = translateString("&7:&f ") + formatTime(timer.getTime());
+                    scoreboard.add(left, right);
+                }
+
                 List<Timer> defaultTimers = Main.getInstance().getTimerHandler().getPlayerTimers(player);
                 for (Timer timer : defaultTimers)
                 {
-                    if (timer.getTime() > 0)
-                    {
-                        String left = translateString(timer.getTimerType().getScore());
-                        String right = translateString("&7:&f ") + formatTime(timer.getTime());
-                        scoreboard.add(left, right);
-                    }
+                    if (timer.getTime() < 0)
+                        continue;
+
+                    String left = translateString(timer.getTimerType().getScore());
+                    String right = translateString("&7:&f ") + formatTime(timer.getTime());
+                    scoreboard.add(left, right);
                 }
             }
             scoreboard.add("", "");
@@ -109,6 +120,6 @@ public class GooseTicker extends BukkitRunnable
 
     private boolean hasAnyTimers(Player player)
     {
-        return Main.getInstance().getTimerHandler().getPlayerTimers(player).stream().filter(timer -> timer.getTime() > 0).count() > 0;
+        return Main.getInstance().getServerHandler().getGlobalTimers().stream().filter(timer -> timer.getTime() > 0).count() > 0 || Main.getInstance().getTimerHandler().getPlayerTimers(player).stream().filter(timer -> timer.getTime() > 0).count() > 0;
     }
 }

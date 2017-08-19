@@ -2,6 +2,9 @@ package center.hardcore.uhccore;
 
 import center.hardcore.uhccore.command.*;
 import center.hardcore.uhccore.command.completors.KitCommandCompletor;
+import center.hardcore.uhccore.command.protection.ProtectionBaseCommand;
+import center.hardcore.uhccore.command.protection.ProtectionStartCommand;
+import center.hardcore.uhccore.command.protection.ProtectionStopCommand;
 import center.hardcore.uhccore.dto.Kit;
 import center.hardcore.uhccore.goose.GooseHandler;
 import center.hardcore.uhccore.goose.GooseTicker;
@@ -13,9 +16,12 @@ import center.hardcore.uhccore.timer.TimerHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
+import xyz.sethy.commands.CommandHandler;
 import xyz.sethy.event.EventAPI;
 import xyz.sethy.event.impl.EventFramework;
 
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 public class Main extends JavaPlugin
@@ -27,6 +33,7 @@ public class Main extends JavaPlugin
     private KitHandler kitHandler;
     private Location spawnLocation;
     private GooseHandler gooseHandler;
+    private CommandHandler protectionCommandHandler;
 
     public static synchronized Main getInstance()
     {
@@ -56,6 +63,7 @@ public class Main extends JavaPlugin
         getKitHandler().loadKits();
         this.combatLogHandler = new CombatLogHandler();
         this.spawnLocation = new Location(Bukkit.getWorld("world"), 0.5, 77, 0.5);
+        this.protectionCommandHandler = new CommandHandler();
 
         getCommand("kit").setExecutor(new KitCommand());
         getCommand("kit").setTabCompleter(new KitCommandCompletor());
@@ -63,6 +71,13 @@ public class Main extends JavaPlugin
         getCommand("deletekit").setExecutor(new DeleteKitCommand());
         getCommand("spawn").setExecutor(new SpawnCommand());
         getCommand("kdr").setExecutor(new KDRCommand());
+
+        this.protectionCommandHandler.setHelpPage(new ProtectionBaseCommand());
+        this.protectionCommandHandler.addSubCommand(new ProtectionBaseCommand());
+        this.protectionCommandHandler.addSubCommand(new ProtectionStartCommand());
+        this.protectionCommandHandler.addSubCommand(new ProtectionStopCommand());
+
+        getCommand("protection").setExecutor(this.protectionCommandHandler);
 
         getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerDamageListener(), this);
@@ -76,6 +91,27 @@ public class Main extends JavaPlugin
         getServer().getPluginManager().registerEvents(this.gooseHandler, this);
 
         new GooseTicker().runTaskTimerAsynchronously(this, 1L, 1L);
+
+        Bukkit.getLogger().addHandler(new Handler()
+        {
+            @Override
+            public void publish(final LogRecord record)
+            {
+                System.out.println("TEST NIGGER" + record.getMessage());
+            }
+
+            @Override
+            public void flush()
+            {
+                System.out.println("flush");
+            }
+
+            @Override
+            public void close() throws SecurityException
+            {
+
+            }
+        });
     }
 
     @Override
